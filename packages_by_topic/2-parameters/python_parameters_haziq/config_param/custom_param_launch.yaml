@@ -1,0 +1,7 @@
+/custom_haziq_param_node:
+  ros__parameters:
+    my_item: Mee Udang
+    my_parameter: auto launcher custom param
+    my_quantity: 832
+    use_sim_time: false
+

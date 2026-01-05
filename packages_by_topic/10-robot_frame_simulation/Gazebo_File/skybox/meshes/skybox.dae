@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.0.1</authoring_tool>
+    </contributor>
+    <created>2025-12-22T14:27:47</created>
+    <modified>2025-12-22T14:27:47</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="Skybox_Texture-effect">
+      <profile_COMMON>
+        <newparam sid="skybox_png-surface">
+          <surface type="2D">
+            <init_from>skybox_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="skybox_png-sampler">
+          <sampler2D>
+            <source>skybox_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="skybox_png-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="skybox_png" name="skybox_png">
+      <init_from>skybox.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="Skybox_Texture-material" name="Skybox_Texture">
+      <instance_effect url="#Skybox_Texture-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="SKYBOX_002-mesh" name="SKYBOX.002">
+      <mesh>
+        <source id="SKYBOX_002-mesh-positions">
+          <float_array id="SKYBOX_002-mesh-positions-array" count="72">-0.51318 -0.4645155 0.5292344 0.4801536 -0.4645155 0.5292344 0.4825236 -0.4645155 -0.5282291 -0.51318 -0.4645155 -0.5319983 0.4839605 0.5742401 0.5239983 -0.5164094 0.5742401 0.5239983 -0.5164094 0.57424 -0.5234597 0.4816087 0.57424 -0.5253594 -0.5176622 0.5766004 0.5199812 0.4890042 0.5766004 0.5199812 0.4890042 -0.4726773 0.5199813 -0.5153106 -0.4726772 0.5199813 -0.5173503 -0.4669836 -0.5203973 0.4846299 -0.4669836 -0.5203973 0.4869641 0.5745018 -0.5203972 -0.5173503 0.5745017 -0.5203972 -0.5089713 -0.4707547 0.5264028 -0.5089713 -0.4707547 -0.5325858 -0.5089713 0.5780067 -0.5350758 -0.5089713 0.5780066 0.5264028 0.4659454 0.5626166 0.5258345 0.4659451 0.5663857 -0.5224822 0.4659451 -0.4663 -0.5249187 0.4659454 -0.4681997 0.5258347</float_array>
+          <technique_common>
+            <accessor source="#SKYBOX_002-mesh-positions-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="SKYBOX_002-mesh-normals">
+          <float_array id="SKYBOX_002-mesh-normals-array" count="72">0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 2.83953e-7 -1 0 2.84285e-7 -1 0 2.8396e-7 -1 0 2.83628e-7</float_array>
+          <technique_common>
+            <accessor source="#SKYBOX_002-mesh-normals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="SKYBOX_002-mesh-map-0">
+          <float_array id="SKYBOX_002-mesh-map-0-array" count="72">1 1 0.5033332 1 0.5021482 0.6631752 1 1 0.5021482 0.6631752 1 0.6619747 0.499815 0 1 0 1 0.3336378 0.499815 0 1 0.3336378 0.500991 0.3342429 0.5033332 1 0 1 0 0.6657827 0.5033332 1 0 0.6657827 0.5021574 0.6657828 0 0.3340473 0.5009903 0.3340473 0.5021574 0.6657828 0 0.3340473 0.5021574 0.6657828 0 0.6657827 0 0 0.499815 0 0.5009903 0.3340473 0 0 0.5009903 0.3340473 0 0.3340473 1 0.6619747 0.5021482 0.6631752 0.500991 0.3342429 1 0.6619747 0.500991 0.3342429 1 0.3336378</float_array>
+          <technique_common>
+            <accessor source="#SKYBOX_002-mesh-map-0-array" count="36" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="SKYBOX_002-mesh-vertices">
+          <input semantic="POSITION" source="#SKYBOX_002-mesh-positions"/>
+        </vertices>
+        <triangles material="Skybox_Texture-material" count="12">
+          <input semantic="VERTEX" source="#SKYBOX_002-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#SKYBOX_002-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#SKYBOX_002-mesh-map-0" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 2 2 2 0 0 3 2 2 4 3 3 5 4 4 6 5 5 7 6 6 8 4 4 9 6 6 10 7 7 11 8 8 12 9 9 13 10 10 14 8 8 15 10 10 16 11 11 17 12 12 18 13 13 19 14 14 20 12 12 21 14 14 22 15 15 23 16 16 24 17 17 25 18 18 26 16 16 27 18 18 28 19 19 29 20 20 30 21 21 31 22 22 32 20 20 33 22 22 34 23 23 35</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="SKYBOX_002" name="SKYBOX.002" type="NODE">
+        <matrix sid="transform">350.8628 0 0 0 0 -1.53367e-5 -350.8628 0 0 350.8628 -1.53367e-5 0 0 0 0 1</matrix>
+        <instance_geometry url="#SKYBOX_002-mesh" name="SKYBOX.002">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Skybox_Texture-material" target="#Skybox_Texture-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

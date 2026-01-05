@@ -1,0 +1,8 @@
+float32 target_altitude
+
+---
+bool success
+float32 final_altitude
+
+---
+float32 current_altitude

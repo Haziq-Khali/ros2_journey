@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="jokerbot">
+    <static>false</static>
+
+    <link name="jokerbot_link">
+      
+      <visual name="jokerbot_visual">
+        <geometry>
+          <mesh>
+            <uri>model://jokerbot/meshes/jokerbot.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="jokerbot_collision">
+        <geometry>
+          <mesh>
+            <uri>model://jokerbot/meshes/jokerbot.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>
+

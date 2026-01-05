@@ -1,0 +1,27 @@
+<library path="order_haziq_plugins">
+
+    <description>
+        class type="the actual C++ namespace + class" 
+        base_class_type="what in the base interfaces wrote"
+        name="what we give it, the string we'll use in parameters"
+    </description>
+
+
+
+    <class type="order_haziq_plugins::SetA" base_class_type="order_haziq_base::OrderSet" name="SetA"/>
+    <description>Computer SetA: Intel i5 + Nvidia RTX3060 + 16GB RAM</description>
+
+    <class type="order_haziq_plugins::SetB" base_class_type="order_haziq_base::OrderSet" name="SetB"/>
+    <description></description>
+
+    <class type="order_haziq_plugins::SetC" base_class_type="order_haziq_base::OrderSet" name="SetC"/>
+    <description></description>
+
+
+
+
+    <class type="order_haziq_plugins::BasicCalculator" base_class_type="order_haziq_base::OrderCalculator" name="BasicCalculator"/>
+    <class type="order_haziq_plugins::DiscountCalculator" base_class_type="order_haziq_base::OrderCalculator" name="DiscountCalculator"/>
+
+
+</library>

@@ -1,0 +1,11 @@
+#Request
+string name
+string set
+int64 quantity
+
+---
+#Wajib ada tiga dash as separator
+
+#Response 
+string order
+int64 total_item

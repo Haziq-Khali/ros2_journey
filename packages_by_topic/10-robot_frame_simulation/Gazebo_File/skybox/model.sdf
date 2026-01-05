@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+    <model name='skybox'>
+      <static>1</static>
+      <link name='body'>
+        <visual name='visual'>
+        <cast_shadows>false</cast_shadows>
+        <material>
+           <lighting>false</lighting>
+        </material>
+          <geometry>
+            <mesh>
+              <uri>model://skybox/meshes/skybox.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+</sdf>

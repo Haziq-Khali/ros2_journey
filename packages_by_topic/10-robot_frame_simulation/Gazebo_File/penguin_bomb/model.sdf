@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="penguin_bomb">
+    <static>false</static>
+
+    <link name="penguin_bomb_link">
+      
+      <visual name="penguin_bomb_visual">
+        <geometry>
+          <mesh>
+            <uri>model://penguin_bomb/meshes/penguin_bomb.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="penguin_bomb_collision">
+        <geometry>
+          <mesh>
+            <uri>model://penguin_bomb/meshes/penguin_bomb.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>
+

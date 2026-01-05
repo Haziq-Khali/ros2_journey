@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<robot name="robot_patrol" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!-- Inertial -->
+    <xacro:macro name="base_inertial">
+        <inertial>
+        <mass value="50" />
+        <inertia ixx="2.01" ixy="0.0" ixz="0.0" iyy="4.68" iyz="0.0" izz="5.67" />
+        </inertial>
+    </xacro:macro>
+    
+    <xacro:macro name="wheel_inertial">
+        <inertial>
+        <mass value="2.5" />
+        <inertia ixx="0.0139" ixy="0.0" ixz="0.0" iyy="0.0245" iyz="0.0" izz="0.0139" />
+        </inertial>
+    </xacro:macro>
+    
+    <xacro:macro name="neck_inertial">
+        <inertial>
+        <mass value="4.0" />
+        <inertia ixx="0.0220" ixy="0.0" ixz="0.0" iyy="0.0220" iyz="0.0" izz="0.0072" />
+        </inertial>
+    </xacro:macro>
+    
+    <xacro:macro name="head_inertial">
+        <inertial>
+        <mass value="3.0" />
+        <inertia ixx="0.0436" ixy="0.0" ixz="0.0" iyy="0.0661" iyz="0.0" izz="0.1025" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- Odom_link -->
+    <link name="odom_link">
+
+    </link>
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="1.0 0.6 0.25"/>
+            </geometry>
+            <origin xyz="0 0 0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="1.0 0.6 0.25"/>
+            </geometry>
+            <origin xyz="0 0 0"/>
+        </collision>
+        <xacro:base_inertial/>
+    </link>
+
+    <joint name="base_link_to_odom_link" type="fixed">
+        <parent link="odom_link"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0.45" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- Wheel Joint -->
+    <xacro:macro name="wheel" params="side reflect">
+        
+        <link name="${side}_front_wheel">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.14" length="0.08"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.14" length="0.08"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            </collision>
+            <xacro:wheel_inertial/>
+        </link>
+
+        <joint name="${side}_front_wheel_to_base_link" type="continuous">
+            <axis xyz="0 1 0"/>
+            <parent link="base_link"/>
+            <child link="${side}_front_wheel"/>
+            <origin xyz="0.35 ${reflect*0.25} -0.325" rpy="0 0 0"/>
+        </joint>
+
+        <link name="${side}_rear_wheel">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.14" length="0.08"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.14" length="0.08"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            </collision>
+            <xacro:wheel_inertial/>
+        </link>
+
+        <joint name="${side}_rear_wheel_to_base_link" type="continuous">
+            <axis xyz="0 1 0"/>
+            <parent link="base_link"/>
+            <child link="${side}_rear_wheel"/>
+            <origin xyz="-0.35 ${reflect*0.25} -0.325" rpy="0 0 0"/>
+        </joint>
+
+    </xacro:macro>
+    <xacro:wheel side="right" reflect="1"/>
+    <xacro:wheel side="left" reflect="-1"/>
+
+
+    <!-- Neck -->
+    <link name="neck_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.06" length="0.25"/>
+            </geometry>
+            <origin xyz="0 0 0.125"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.06" length="0.25"/>
+            </geometry>
+            <origin xyz="0 0 0.125"/>
+        </collision>
+        <xacro:neck_inertial/>
+    </link>
+
+    <joint name="neck_link_to_base_link" type="prismatic">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000" lower="-0.168" upper="0" velocity="30"/>
+        <parent link="base_link"/>
+        <child link="neck_link"/>
+        <origin xyz="0.35 0 0.13"/>
+    </joint>
+
+
+    <!-- Head -->
+    <link name="head_link">
+        <visual>
+            <geometry>
+                <box size="0.4 0.35 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0.1"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.4 0.35 0.2"/>
+            </geometry>
+            <origin xyz="0 -0.03 0.1"/>
+        </collision>
+        <xacro:head_inertial/>
+    </link>
+
+    <joint name="head_link_to_neck_link" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000" lower="-2.356" upper="2.356" velocity="30"/>
+        <parent link="neck_link"/>
+        <child link="head_link"/>
+        <origin xyz="0 0 0.25"/>
+    </joint>
+
+
+    <!-- ROS2 Control -->
+    <ros2_control name="GazeboSystem" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+    
+        <joint name="head_link_to_neck_link">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="neck_link_to_base_link">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        
+        <joint name="left_front_wheel_to_base_link">
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="left_rear_wheel_to_base_link">
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="right_front_wheel_to_base_link">
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="right_rear_wheel_to_base_link">
+            <command_interface name="velocity" />
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+    </ros2_control>
+
+
+    <!-- Gazebo -->
+    <gazebo>
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+            <parameters>$(find robot_patrol)/config/patrol_diffdrive_test.yaml</parameters>
+        </plugin>
+    </gazebo> 
+
+
+    <!-- LIDAR -->
+    <link name="lidar_link"/>
+
+    <joint name="lidar_joint" type="fixed">
+        <parent link="head_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0.2 0.05 0.09"/>
+    </joint>
+
+    <gazebo reference="lidar_link">
+        <sensor type="ray" name="lidar_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+            <scan>
+            <horizontal>
+                <samples>360</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.57</min_angle>
+                <max_angle>1.57</max_angle>
+            </horizontal>
+            </scan>
+            <range>
+            <min>0.12</min>
+            <max>10.0</max>
+            <resolution>0.01</resolution>
+            </range>
+            <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+            </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_laser" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+            <namespace>/</namespace>
+            <remapping>/gazebo_ros_laser/out:=/scan</remapping>
+            </ros>
+            <frame_name>lidar_link</frame_name>
+            <output_type>sensor_msgs/LaserScan</output_type>
+        </plugin>
+        </sensor>
+    </gazebo>
+
+
+    <!-- Camera -->
+    <link name="camera_link"/>
+
+    <joint name="camera_joint" type="fixed">
+        <parent link="head_link"/>
+        <child link="camera_link"/>
+        <origin xyz="0.2 -0.05 0.09" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="camera_link">
+        <sensor name="patrol_cam" type="camera">
+        <always_on>true</always_on>
+        <update_rate>60</update_rate>
+        <visualize>true</visualize>
+        <camera>
+            <horizontal_fov>1.0944</horizontal_fov>
+            <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+            </image>
+            <clip>
+            <near>0.1</near>
+            <far>100</far>
+            </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <ros>
+            <namespace>/</namespace>
+            <remapping>~/image_raw:=/camera/image_raw</remapping>
+            <remapping>~/camera_info:=/camera/camera_info</remapping>
+            </ros>
+            <frame_name>camera_link</frame_name>
+        </plugin>
+        </sensor>
+    </gazebo>
+
+
+    <!-- IMU tools -->
+    <link name="imu_link"/>
+    <joint name="base_to_imu" type="fixed">
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="imu_link">
+        <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+        
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+            <ros>
+            <namespace>/</namespace>
+            <remapping>~/out:=/imu/data</remapping>
+            </ros>
+            <frame_name>imu_link</frame_name>
+        </plugin>
+        </sensor>
+    </gazebo>
+
+</robot>

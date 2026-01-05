@@ -1,0 +1,67 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    head_controller:
+      type: position_controllers/JointGroupPositionController
+
+    neck_controller:
+      type: position_controllers/JointGroupPositionController
+
+    diff_drive_base_controller:
+      type: diff_drive_controller/DiffDriveController
+
+head_controller:
+  ros__parameters:
+    joints:
+    - head_link_to_neck_link #change
+    interface_name: position
+
+neck_controller:
+  ros__parameters:
+    joints:
+    - neck_link_to_body_link #change
+    interface_name: position
+
+diff_drive_base_controller:
+  ros__parameters:
+
+    publish_rate: 50.0
+
+    left_wheel_names: [left_front_wheel_to_body_link, left_rear_wheel_to_body_link]  #change if needed
+    right_wheel_names: [right_front_wheel_to_body_link, right_rear_wheel_to_body_link]  #change if needed
+
+    wheel_separation: 0.01
+    wheel_radius: 0.035
+
+    # Odometry covariances for the encoder output of the robot. These values should
+    # be tuned to your robot's sample odometry data, but these values are a good place
+    # to start
+    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+
+    # Top level frame (link) of the robot description
+    base_frame_id: base_link #change if needed
+
+    use_stamped_vel: false
+
+    # Velocity and acceleration limits for the robot
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 100.0              # m/s
+        min_velocity: -100.0             # m/s
+        has_acceleration_limits: false
+        max_acceleration: 5.0          # m/s^2
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 50.0              # rad/s
+        min_velocity: -50.0
+        has_acceleration_limits: false
+        max_acceleration: 6.0          # rad/s^2
+        min_acceleration: -1.0

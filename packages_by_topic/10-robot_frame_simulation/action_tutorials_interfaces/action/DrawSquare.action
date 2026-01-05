@@ -1,0 +1,5 @@
+int32 numbers
+---
+bool success
+---
+uint8 side_completed

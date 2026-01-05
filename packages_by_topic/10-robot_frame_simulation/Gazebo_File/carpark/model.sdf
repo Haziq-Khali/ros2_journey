@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="carpark">
+    <static>true</static>
+    <link name="carpark_link">
+      
+      <!-- Visual: shows the road -->
+      <visual name="carpark_visual">
+        <cast_shadows>0</cast_shadows>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://carpark/meshes/carpark.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <!-- Collision: makes the car NOT fall through -->
+      <collision name="carpark_collision_ground">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://carpark/meshes/carpark_floor.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <!-- Collision: makes the car NOT fall through -->
+      <collision name="carpark_collision_sidewalk">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://carpark/meshes/carpark_sidewalk.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <!-- Collision: makes the car NOT fall through -->
+      <collision name="carpark_collision_objects">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://carpark/meshes/carpark_objects.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>
+

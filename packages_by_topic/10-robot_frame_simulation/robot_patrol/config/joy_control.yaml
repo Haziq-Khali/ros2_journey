@@ -1,0 +1,43 @@
+teleop_twist_joy_node:
+  ros__parameters:
+
+    require_enable_button: true
+    enable_button: 6            # Hold L1 to drive / raj 4 / fantech 6
+    enable_turbo_button: 7      # Hold R1 for turbo / raj 5 / fantech 7
+
+    # ------------ AXIS MAPPING ------------
+    axis_linear:
+      x: 1     # Left stick vertical
+      y: -1
+      z: -1
+
+    axis_angular:
+      yaw: 2  # Right stick horizontal /raj 3 / fantech 2
+      pitch: -1
+      roll: -1
+
+    # ------------ NORMAL SPEED ------------
+    scale_linear:
+      x: 3.0
+      y: 0.0
+      z: 0.0
+
+    scale_angular:
+      yaw: 2.6
+      pitch: 0.0
+      roll: 0.0
+
+    # ------------ TURBO SPEED ------------
+    scale_linear_turbo:
+      x: 8.0
+      y: 0.0
+      z: 0.0
+
+    scale_angular_turbo:
+      yaw: 4.2
+      pitch: 0.0
+      roll: 0.0
+
+    # ------------ OTHERS ------------
+    deadzone: 0.05
+    autorepeat_rate: 20.0

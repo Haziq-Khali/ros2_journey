@@ -1,0 +1,7 @@
+/haziq_param_node:
+  ros__parameters:
+    my_item: Radeon Graphic
+    my_parameter: buyer
+    my_quantity: 100
+    use_sim_time: false
+
